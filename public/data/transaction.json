@@ -1,0 +1,14 @@
+[
+  {
+    "date": "May 23",
+    "debit": "Cash",
+    "credit": "Allowance",
+    "amount": 100
+  },
+  {
+    "date": "May 23",
+    "debit": "Transport",
+    "credit": "Cash",
+    "amount": 50
+  }
+]
