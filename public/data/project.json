@@ -1,0 +1,46 @@
+[
+  {
+    "id": "uuid4",
+    "name": "Personal",
+    "user": "Harry",
+    "account": [
+      {
+        "name": "Cash",
+        "category": "Asset",
+        "ledger": "General"
+      },
+      {
+        "name": "Allowance",
+        "category": "Income",
+        "ledger": "General"
+      },
+      {
+        "name": "Hillard",
+        "category": "Liability",
+        "ledger": "Purchases"
+      }
+    ]
+  },
+  {
+    "id": "uuid5",
+    "name": "Work",
+    "user": "Harry",
+    "account": [
+      {
+        "name": "Cash",
+        "category": "Asset",
+        "ledger": "General"
+      },
+      {
+        "name": "Allowance",
+        "category": "Income",
+        "ledger": "General"
+      },
+      {
+        "name": "Hillard",
+        "category": "Liability",
+        "ledger": "Purchases"
+      }
+    ]
+  }
+]

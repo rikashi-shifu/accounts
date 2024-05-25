@@ -1,14 +1,41 @@
 [
   {
+    "id": "uuid1",
     "date": "May 23",
     "debit": "Cash",
-    "credit": "Allowance",
-    "amount": 100
+    "debit_category": "Asset",
+    "credit": "Cash",
+    "credit_category": "Asset",
+    "folio": "c",
+    "amount": 100,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
   },
   {
+    "id": "uuid2",
     "date": "May 23",
+    "debit": "Cash",
+    "debit_category": "Asset",
+    "credit": "Allowance",
+    "credit_category": "Income",
+    "folio": "",
+    "amount": 100,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
+  },
+  {
+    "id": "uuid3",
+    "date": "May 24",
     "debit": "Transport",
+    "debit_category": "Expense",
     "credit": "Cash",
-    "amount": 50
+    "credit_category": "Asset",
+    "folio": "",
+    "amount": 50,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
   }
 ]
