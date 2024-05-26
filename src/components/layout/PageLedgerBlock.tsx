@@ -31,10 +31,10 @@ const PageLedgerBlock: React.FC<PageLedgerBlockProps> = ({
         </button>
       </div>
       <div className={`${hideChildren && "hidden"} flex flex-col gap-2`}>
-        {children}
-      </div>
-      <div className="rounded-md text-neutral-300 items-center hover:border-neutral-500 border border-transparent flex justify-center bg-[#2c2c2c] p-1 opacity-50 hover:opacity-100">
-        <IoIosAdd />
+        <div className="flex flex-col gap-2">{children}</div>
+        <div className="rounded-md text-neutral-300 items-center hover:border-neutral-500 border border-transparent flex justify-center bg-[#2c2c2c] p-1 opacity-50 hover:opacity-100">
+          <IoIosAdd />
+        </div>
       </div>
     </div>
   );

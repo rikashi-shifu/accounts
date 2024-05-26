@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 
@@ -16,7 +16,13 @@ interface Project {
   account: Account;
 }
 
-const ProjectNavigation = () => {
+interface ProjectNavigationProps {
+  setCurrentProject: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
+  setCurrentProject,
+}) => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -29,6 +35,8 @@ const ProjectNavigation = () => {
       );
     })();
   }, []);
+
+  const router = useRouter();
 
   return (
     <div className="w-20 flex flex-col items-center bg-[#151515]">
@@ -46,13 +54,19 @@ const ProjectNavigation = () => {
       <div className="h-full flex pt-4 flex-col gap-4">
         {projects.map((project, key) => {
           return (
-            <Link
+            <button
               key={key}
-              href={"/"}
+              onClick={() => {
+                const formattedProjectName = project.name
+                  .toLowerCase()
+                  .replace(/ /g, "-");
+                router.push(`/${formattedProjectName}`);
+                setCurrentProject(formattedProjectName);
+              }}
               className="bg-[#2c2c2c] text-white flex justify-center items-center rounded-full w-14 h-14"
             >
               {project.name.slice(0, 1)}
-            </Link>
+            </button>
           );
         })}
         <button className="bg-[#2c2c2c] text-2xl text-white flex justify-center items-center rounded-full w-14 h-14">

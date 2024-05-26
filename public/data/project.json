@@ -3,7 +3,7 @@
     "id": "uuid4",
     "name": "Personal",
     "user": "Harry",
-    "account": [
+    "accounts": [
       {
         "name": "Cash",
         "category": "Asset",
@@ -15,7 +15,7 @@
         "ledger": "General"
       },
       {
-        "name": "Hillard",
+        "name": "Someone",
         "category": "Liability",
         "ledger": "Purchases"
       }
@@ -25,7 +25,7 @@
     "id": "uuid5",
     "name": "Work",
     "user": "Harry",
-    "account": [
+    "accounts": [
       {
         "name": "Cash",
         "category": "Asset",

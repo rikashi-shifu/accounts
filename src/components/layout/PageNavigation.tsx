@@ -16,10 +16,14 @@ interface Project {
   id: string;
   name: string;
   user: string;
-  account: Account;
+  accounts: Account[];
 }
 
-const PageNavigation = () => {
+interface PageNavigationProps {
+  currentProject: string;
+}
+
+const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -45,22 +49,63 @@ const PageNavigation = () => {
               <div className="flex flex-col gap-2">
                 <PageCategoryBlock name="Financial Statement">
                   <div className="flex flex-col gap-2">
-                    <PageStatementBlock name="Income Statement" />
-                    <PageStatementBlock name="Balance Sheet" />
+                    <PageStatementBlock
+                      name="Income Statement"
+                      project={currentProject}
+                    />
+                    <PageStatementBlock
+                      name="Balance Sheet"
+                      project={currentProject}
+                    />
                   </div>
                 </PageCategoryBlock>
 
                 <PageCategoryBlock name="Ledger">
                   <div className="flex flex-col gap-2">
                     <PageLedgerBlock name="General Ledger">
-                      <PageAccountBlock name="Cash" category="Asset" />
-                      <PageAccountBlock name="Allowance" category="Income" />
-                      <PageAccountBlock name="Capital" />
+                      {project.accounts
+                        .filter((account) => account.ledger === "General")
+                        .map((account, i) => {
+                          return (
+                            <PageAccountBlock
+                              key={i}
+                              name={account.name}
+                              category={account.category}
+                              project={currentProject}
+                            />
+                          );
+                        })}
                     </PageLedgerBlock>
 
-                    <PageLedgerBlock name="Purchases Ledger"></PageLedgerBlock>
+                    <PageLedgerBlock name="Purchases Ledger">
+                      {project.accounts
+                        .filter((account) => account.ledger === "Purchases")
+                        .map((account, i) => {
+                          return (
+                            <PageAccountBlock
+                              key={i}
+                              name={account.name}
+                              category={account.category}
+                              project={currentProject}
+                            />
+                          );
+                        })}
+                    </PageLedgerBlock>
 
-                    <PageLedgerBlock name="Sales Ledger"></PageLedgerBlock>
+                    <PageLedgerBlock name="Sales Ledger">
+                      {project.accounts
+                        .filter((account) => account.ledger === "Sales")
+                        .map((account, i) => {
+                          return (
+                            <PageAccountBlock
+                              key={i}
+                              name={account.name}
+                              category={account.category}
+                              project={currentProject}
+                            />
+                          );
+                        })}
+                    </PageLedgerBlock>
                   </div>
                 </PageCategoryBlock>
               </div>
