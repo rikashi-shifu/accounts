@@ -14,7 +14,7 @@ const PageLedgerBlock: React.FC<PageLedgerBlockProps> = ({
   const [hideChildren, setHideChildren] = useState(false);
 
   return (
-    <div className="flex flex-col p-2 pb-3 gap-2 rounded-md bg-[#1f1f1f] ps-4">
+    <div className="flex flex-col py-2 px-4 pb-3 gap-2 rounded-md bg-[#1f1f1f]">
       <div className="flex justify-between">
         <div className="text-neutral-300">{name}</div>
         <button
@@ -32,7 +32,7 @@ const PageLedgerBlock: React.FC<PageLedgerBlockProps> = ({
       </div>
       <div className={`${hideChildren && "hidden"} flex flex-col gap-2`}>
         <div className="flex flex-col gap-2">{children}</div>
-        <div className="rounded-md text-neutral-300 items-center hover:border-neutral-500 border border-transparent flex justify-center bg-[#2c2c2c] p-1 opacity-50 hover:opacity-100">
+        <div className="rounded-md text-neutral-300 items-center flex justify-center bg-[#2c2c2c] p-1 opacity-50 hover:opacity-100">
           <IoIosAdd />
         </div>
       </div>

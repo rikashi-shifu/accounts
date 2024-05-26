@@ -15,7 +15,7 @@
         "ledger": "General"
       },
       {
-        "name": "Someone",
+        "name": "Credit Supplier",
         "category": "Liability",
         "ledger": "Purchases"
       }
@@ -27,19 +27,14 @@
     "user": "Harry",
     "accounts": [
       {
-        "name": "Cash",
+        "name": "Bank",
         "category": "Asset",
         "ledger": "General"
       },
       {
-        "name": "Allowance",
-        "category": "Income",
-        "ledger": "General"
-      },
-      {
-        "name": "Hillard",
+        "name": "Credit Customer",
         "category": "Liability",
-        "ledger": "Purchases"
+        "ledger": "Sales"
       }
     ]
   }

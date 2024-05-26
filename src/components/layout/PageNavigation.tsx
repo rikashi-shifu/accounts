@@ -5,6 +5,7 @@ import PageCategoryBlock from "./PageCategoryBlock";
 import PageLedgerBlock from "./PageLedgerBlock";
 import PageAccountBlock from "./PageAccountBlock";
 import PageStatementBlock from "./PageStatementBlock";
+import { useParams } from "next/navigation";
 
 interface Account {
   name: string;
@@ -19,11 +20,7 @@ interface Project {
   accounts: Account[];
 }
 
-interface PageNavigationProps {
-  currentProject: string;
-}
-
-const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
+const PageNavigation = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -37,10 +34,15 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
     })();
   }, []);
 
+  const param = useParams();
+
   return (
     <div className="w-72 bg-black">
       {projects
-        .filter((project) => project.name === "Personal")
+        .filter(
+          (project) =>
+            project.name.toLowerCase().replace(/ /g, "-") === param.project
+        )
         .map((project) => {
           return (
             <>
@@ -49,14 +51,8 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
               <div className="flex flex-col gap-2">
                 <PageCategoryBlock name="Financial Statement">
                   <div className="flex flex-col gap-2">
-                    <PageStatementBlock
-                      name="Income Statement"
-                      project={currentProject}
-                    />
-                    <PageStatementBlock
-                      name="Balance Sheet"
-                      project={currentProject}
-                    />
+                    <PageStatementBlock name="Income Statement" />
+                    <PageStatementBlock name="Balance Sheet" />
                   </div>
                 </PageCategoryBlock>
 
@@ -71,7 +67,6 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
                               key={i}
                               name={account.name}
                               category={account.category}
-                              project={currentProject}
                             />
                           );
                         })}
@@ -86,7 +81,6 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
                               key={i}
                               name={account.name}
                               category={account.category}
-                              project={currentProject}
                             />
                           );
                         })}
@@ -101,7 +95,6 @@ const PageNavigation: React.FC<PageNavigationProps> = ({ currentProject }) => {
                               key={i}
                               name={account.name}
                               category={account.category}
-                              project={currentProject}
                             />
                           );
                         })}

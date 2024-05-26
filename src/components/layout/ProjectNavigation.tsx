@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 
@@ -16,13 +16,7 @@ interface Project {
   account: Account;
 }
 
-interface ProjectNavigationProps {
-  setCurrentProject: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
-  setCurrentProject,
-}) => {
+const ProjectNavigation = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -37,6 +31,7 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
   }, []);
 
   const router = useRouter();
+  const param = useParams();
 
   return (
     <div className="w-20 flex flex-col items-center bg-[#151515]">
@@ -53,23 +48,24 @@ const ProjectNavigation: React.FC<ProjectNavigationProps> = ({
       <hr className="w-1/2 border-[#323232]" />
       <div className="h-full flex pt-4 flex-col gap-4">
         {projects.map((project, key) => {
+          const formattedProjectName = project.name
+            .toLowerCase()
+            .replace(/ /g, "-");
           return (
             <button
               key={key}
               onClick={() => {
-                const formattedProjectName = project.name
-                  .toLowerCase()
-                  .replace(/ /g, "-");
                 router.push(`/${formattedProjectName}`);
-                setCurrentProject(formattedProjectName);
               }}
-              className="bg-[#2c2c2c] text-white flex justify-center items-center rounded-full w-14 h-14"
+              className={`${
+                param.project === formattedProjectName && "border-neutral-500"
+              } bg-[#2c2c2c] text-white hover:border-neutral-500 border border-transparent rounded-full flex justify-center items-center w-14 h-14`}
             >
               {project.name.slice(0, 1)}
             </button>
           );
         })}
-        <button className="bg-[#2c2c2c] text-2xl text-white flex justify-center items-center rounded-full w-14 h-14">
+        <button className="bg-[#2c2c2c] opacity-50 hover:opacity-100 text-2xl text-white flex justify-center items-center rounded-full w-14 h-14">
           <IoIosAdd />
         </button>
       </div>
