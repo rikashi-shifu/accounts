@@ -34,12 +34,17 @@ const ProjectNavigation = () => {
   const param = useParams();
 
   return (
-    <div className="w-20 flex flex-col items-center bg-[#151515]">
+    <div className="w-20 flex flex-col items-center bg-[#151515] z-10">
       <div className="flex flex-col pb-4">
         <div className="w-full flex justify-center py-6 items-center">
-          <div className="bg-white rounded-full w-14 h-14 flex justify-center items-center">
+          <button
+            onClick={() => {
+              router.push("/");
+            }}
+            className="bg-white rounded-full w-14 h-14 flex justify-center items-center"
+          >
             Logo
-          </div>
+          </button>
         </div>
         <div className="rounded-2xl bg-[#c8a1d6] w-14 h-14 flex justify-center font-semibold text-3xl items-center">
           8
@@ -58,8 +63,10 @@ const ProjectNavigation = () => {
                 router.push(`/${formattedProjectName}`);
               }}
               className={`${
-                param.project === formattedProjectName && "border-neutral-500"
-              } bg-[#2c2c2c] text-white hover:border-neutral-500 border border-transparent rounded-full flex justify-center items-center w-14 h-14`}
+                param.project === formattedProjectName
+                  ? "rounded-xl border-neutral-500"
+                  : "rounded-full border-transparent"
+              } bg-[#2c2c2c] text-white hover:border-neutral-500 duration-150 border flex justify-center items-center w-14 h-14`}
             >
               {project.name.slice(0, 1)}
             </button>

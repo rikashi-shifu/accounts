@@ -20,8 +20,13 @@ interface Project {
   accounts: Account[];
 }
 
-const PageNavigation = () => {
+interface PageNavigationProps {
+  showNav: boolean;
+}
+
+const PageNavigation: React.FC<PageNavigationProps> = ({ showNav }) => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [showCloseNavBtn, setShowCloseNavBtn] = useState(false);
 
   useEffect(() => {
     void (async () => {
@@ -37,7 +42,11 @@ const PageNavigation = () => {
   const param = useParams();
 
   return (
-    <div className="w-72 bg-black">
+    <div
+      className={`${!showNav && "-translate-x-72"} w-72 bg-black duration-300`}
+      onMouseOver={() => setShowCloseNavBtn(true)}
+      onMouseLeave={() => setShowCloseNavBtn(false)}
+    >
       {projects
         .filter(
           (project) =>
@@ -46,7 +55,10 @@ const PageNavigation = () => {
         .map((project) => {
           return (
             <>
-              <PageHeader name={project.name} />
+              <PageHeader
+                name={project.name}
+                showCloseNavBtn={showCloseNavBtn}
+              />
 
               <div className="flex flex-col gap-2">
                 <PageCategoryBlock name="Financial Statement">

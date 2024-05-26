@@ -15,9 +15,15 @@ const PageCategoryBlock: React.FC<PageCategoryBlockProps> = ({
 
   return (
     <div className="flex justify-center items-center">
-      <div className="bg-[#151515] rounded-md flex flex-col gap-4 w-11/12 p-4">
+      <div className="bg-[#151515] rounded-md flex flex-col gap-2 w-11/12 p-4">
         <div className="flex justify-between">
-          <h1 className="text-[#c8a1d6] font-semibold">{name}</h1>
+          <h1
+            className={`${
+              hideChildren ? "text-neutral-400" : "text-[#c8a1d6]"
+            } ps-1 text-sm duration-300 font-semibold`}
+          >
+            {name}
+          </h1>
           <button
             onClick={() => {
               if (hideChildren) {

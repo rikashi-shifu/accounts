@@ -32,6 +32,11 @@
         "ledger": "General"
       },
       {
+        "name": "Capital",
+        "category": "Capital",
+        "ledger": "General"
+      },
+      {
         "name": "Credit Customer",
         "category": "Liability",
         "ledger": "Sales"

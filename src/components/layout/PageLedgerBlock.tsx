@@ -14,9 +14,9 @@ const PageLedgerBlock: React.FC<PageLedgerBlockProps> = ({
   const [hideChildren, setHideChildren] = useState(false);
 
   return (
-    <div className="flex flex-col py-2 px-4 pb-3 gap-2 rounded-md bg-[#1f1f1f]">
+    <div className="flex flex-col py-3 px-4 pb-3 gap-2 rounded-md bg-[#1f1f1f]">
       <div className="flex justify-between">
-        <div className="text-neutral-300">{name}</div>
+        <div className="text-neutral-300 text-sm">{name}</div>
         <button
           onClick={() => {
             if (hideChildren) {

@@ -16,10 +16,10 @@ const PageStatementBlock: React.FC<PageStatementBlockProps> = ({ name }) => {
     <button
       onClick={() => router.push(`/${project}/${formattedName}`)}
       className={`${
-        pathname.includes(formattedName) &&
-        !pathname.includes("account") &&
-        "border-neutral-500"
-      } p-2 text-start rounded-md bg-[#1f1f1f] hover:border-neutral-500 border border-transparent ps-4 text-neutral-300`}
+        pathname.includes(formattedName) && !pathname.includes("account")
+          ? "border-neutral-500"
+          : "border-transparent"
+      } p-2 text-start text-sm rounded-md bg-[#1f1f1f] hover:border-neutral-500 border ps-3 text-neutral-300`}
     >
       {name}
     </button>
