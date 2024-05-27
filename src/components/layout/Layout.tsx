@@ -1,13 +1,17 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
-import Navigation from "./Navigation";
+import React, { ReactNode, useState } from "react";
+import ProjectNavigation from "./project-nav/ProjectNavigation";
+import PageNavigation from "./page-nav/PageNavigation";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [showNav, setShowNav] = useState(true);
 
   return (
     <div className="flex w-full">
-      <Navigation />
+      <nav className="flex z-10">
+        <ProjectNavigation />
+        <PageNavigation />
+      </nav>
 
       <main
         className={`${
