@@ -1,5 +1,6 @@
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
+import { useNavContext } from "../Layout";
 
 interface Account {
   name: string;
@@ -15,21 +16,22 @@ interface Project {
 }
 
 interface ProjectBlockProps {
-  formattedProjectName: string;
   project: Project;
 }
 
-const ProjectBlock: React.FC<ProjectBlockProps> = ({
-  formattedProjectName,
-  project,
-}) => {
+const ProjectBlock: React.FC<ProjectBlockProps> = ({ project }) => {
   const router = useRouter();
   const param = useParams();
+  const { setShowNav } = useNavContext();
 
+  const formattedProjectName = project.name.toLowerCase().replace(/ /g, "-");
   return (
     <button
       onClick={() => {
-        router.push(`/${formattedProjectName}`);
+        setShowNav(true);
+        if (param.project !== formattedProjectName) {
+          router.push(`/${formattedProjectName}`);
+        }
       }}
       className={`${
         param.project === formattedProjectName

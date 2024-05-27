@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import PageHeader from "./PageHeader";
 import PageCategoryBlock from "./PageCategoryBlock";
 import PageLedgerBlock from "./PageLedgerBlock";
 import PageAccountBlock from "./PageAccountBlock";
 import PageStatementBlock from "./PageStatementBlock";
 import { useParams } from "next/navigation";
+import { useNavContext } from "../Layout";
 
 interface Account {
   name: string;
@@ -26,6 +27,7 @@ const PageNavigation = () => {
   const [showCloseNavBtn, setShowCloseNavBtn] = useState(false);
 
   const param = useParams();
+  const { showNav } = useNavContext();
 
   useEffect(() => {
     void (async () => {
@@ -48,7 +50,7 @@ const PageNavigation = () => {
 
   return (
     <div
-      className={`${!true && "-translate-x-72"} w-72 bg-black duration-300`}
+      className={`${!showNav && "-translate-x-72"} w-72 bg-black duration-300`}
       onMouseOver={() => setShowCloseNavBtn(true)}
       onMouseLeave={() => setShowCloseNavBtn(false)}
     >

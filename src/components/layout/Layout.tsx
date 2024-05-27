@@ -1,18 +1,36 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 import ProjectNavigation from "./project-nav/ProjectNavigation";
 import PageNavigation from "./page-nav/PageNavigation";
+import { usePathname } from "next/navigation";
+
+interface NavContextType {
+  showNav: boolean;
+  setShowNav: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NavContext = createContext<NavContextType | undefined>(undefined);
+
+export const useNavContext = () => {
+  const context = useContext(NavContext);
+  if (!context) {
+    throw new Error("useNavContext must be used within a NavContext.Provider");
+  }
+  return context;
+};
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const [showNav, setShowNav] = useState(true);
+  const pathname = usePathname();
 
   return (
     <div className="flex w-full">
-      <nav className="flex z-10">
-        <ProjectNavigation />
-        <PageNavigation />
-      </nav>
-
+      <NavContext.Provider value={{ showNav, setShowNav }}>
+        <nav className={`${pathname === "/" ? "hidden" : "flex"} z-10`}>
+          <ProjectNavigation />
+          <PageNavigation />
+        </nav>
+      </NavContext.Provider>
       <main
         className={`${
           !showNav && "-ms-72"
