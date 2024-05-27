@@ -37,10 +37,10 @@ const Home = () => {
     <div className="p-6 border flex flex-col gap-5 w-full z-10 h-full">
       <h1 className="text-3xl font-bold">Projects</h1>
       <div className="grid grid-cols-4 gap-4">
-        {projects.map((project, i) => {
+        {projects.map((project, key) => {
           return (
             <button
-              key={i}
+              key={key}
               onClick={() =>
                 router.push(`/${project.name.toLowerCase().replace(/ /g, "-")}`)
               }

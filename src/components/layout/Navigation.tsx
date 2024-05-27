@@ -1,17 +1,12 @@
-"use client";
 import React from "react";
-import ProjectNavigation from "@/components/layout/ProjectNavigation";
-import PageNavigation from "@/components/layout/PageNavigation";
+import ProjectNavigation from "@/components/layout/project-nav/ProjectNavigation";
+import PageNavigation from "@/components/layout/page-nav/PageNavigation";
 
-interface NavigationProps {
-  showNav: boolean;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ showNav }) => {
+const Navigation = () => {
   return (
     <nav className="flex z-10">
       <ProjectNavigation />
-      <PageNavigation showNav={showNav} />
+      <PageNavigation />
     </nav>
   );
 };

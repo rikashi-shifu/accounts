@@ -1,4 +1,4 @@
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
 interface PageAccountBlockProps {
