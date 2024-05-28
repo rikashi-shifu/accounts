@@ -2,15 +2,15 @@
 import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
 import React, { useEffect } from "react";
-import { IoIosAdd } from "react-icons/io";
+import { IoIosAdd, IoIosMore } from "react-icons/io";
 
 const AccountHeader = () => {
   return (
-    <div className="flex overflow-hidden border-b py-2 px-4 text-sm font-semibold">
+    <div className="flex border-b py-3 px-4 bg-[#eeeeee] text-sm font-semibold">
       <div className="w-[20%]">Date</div>
-      <div className="w-[40%]">Details</div>
+      <div className="w-[50%]">Details</div>
       <div className="w-[10%]">Folio</div>
-      <div className="w-[30%]">Amount</div>
+      <div className="w-[20%]">Amount</div>
     </div>
   );
 };
@@ -29,20 +29,25 @@ const AccountBlock: React.FC<AccountBlockProps> = ({
   amount,
 }) => {
   return (
-    <div className="flex overflow-hidden border-b py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]">
+    <div className="relative flex items-center border-b py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]">
       <div className="w-[20%]">{date}</div>
-      <div className="w-[40%]">{details}</div>
+      <div className="w-[50%]">{details}</div>
       <div className="w-[10%]">{folio}</div>
-      <div className="w-[30%]">{amount}</div>
+      <div className="w-[20%]">{amount}</div>
+      <button className="absolute right-1 rounded-md hover:bg-[#e9e9e9] px-2 py-1 flex justify-center items-center">
+        <IoIosMore />
+      </button>
     </div>
   );
 };
 
 const AccountAddTransaction = () => {
   return (
-    <button className="flex w-full justify-center items-center my-1 py-1 text-sm text-neutral-400 hover:bg-[#f4f4f4] border-y">
-      <IoIosAdd />
-    </button>
+    <div className="w-full flex justify-center items-center">
+      <button className="flex w-[98%] justify-center items-center my-1 py-1 text-sm text-neutral-500 bg-[#e9e9e9] rounded-md opacity-50 hover:opacity-100">
+        <IoIosAdd />
+      </button>
+    </div>
   );
 };
 
@@ -52,11 +57,11 @@ interface AccountFooterProps {
 
 const AccountFooter: React.FC<AccountFooterProps> = ({ total }) => {
   return (
-    <div className="flex overflow-hidden border-t py-2 px-4 text-xs">
+    <div className="flex border-t py-2 px-4 text-xs">
       <div className="w-[20%]"></div>
-      <div className="w-[40%]"></div>
+      <div className="w-[50%]"></div>
       <div className="w-[10%]"></div>
-      <div className="w-[30%] font-semibold">{180}</div>
+      <div className="w-[20%] font-semibold">{total}</div>
     </div>
   );
 };
@@ -78,12 +83,12 @@ const AccountBalance: React.FC<AccountBalanceProps> = ({
     <div
       className={`${!show && "hidden"} ${
         folio === "b/d" ? "border-b" : "border-t"
-      } flex overflow-hidden py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]`}
+      } flex py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]`}
     >
       <div className="w-[20%]">{date}</div>
-      <div className="w-[40%]">Balance</div>
+      <div className="w-[50%]">Balance</div>
       <div className="w-[10%]">{folio}</div>
-      <div className="w-[30%]">{amount}</div>
+      <div className="w-[20%]">{amount}</div>
     </div>
   );
 };
@@ -105,7 +110,7 @@ const Account = () => {
       <Header name={account.toString()} />
       <div className="flex rounded-lg">
         {/* left */}
-        <div className="w-1/2 flex flex-col justify-between border-2 rounded-s-lg">
+        <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] rounded-s-lg overflow-hidden">
           <div>
             <AccountHeader />
             <AccountBalance date="May 1" show={show} folio="b/d" amount={100} />
@@ -123,7 +128,7 @@ const Account = () => {
           </div>
         </div>
         {/* right */}
-        <div className="w-1/2 flex flex-col justify-between border-2 border-s-0 rounded-e-lg">
+        <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] border-s-0 rounded-e-lg overflow-hidden">
           <div>
             <AccountHeader />
             <AccountBalance
