@@ -1,7 +1,7 @@
 [
   {
     "id": "uuid1",
-    "date": "May 28",
+    "date": "2024-05-29T12:34:56.789Z",
     "debit": "Cash",
     "debit_category": "Asset",
     "credit": "Allowance",
@@ -14,7 +14,7 @@
   },
   {
     "id": "uuid2",
-    "date": "May 30",
+    "date": "2024-05-28T12:34:56.789Z",
     "debit": "Food",
     "debit_category": "Expense",
     "credit": "Cash",
@@ -27,7 +27,7 @@
   },
   {
     "id": "uuid3",
-    "date": "May 26",
+    "date": "2024-05-27T12:34:56.789Z",
     "debit": "Transport",
     "debit_category": "Expense",
     "credit": "Cash",
@@ -40,13 +40,26 @@
   },
   {
     "id": "uuid4",
-    "date": "May 24 ",
+    "date": "2024-05-26T12:34:56.789Z",
     "debit": "Tithe",
     "debit_category": "Expense",
     "credit": "Cash",
     "credit_category": "Asset",
     "folio": "",
     "amount": 10,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
+  },
+  {
+    "id": "uuid4",
+    "date": "2023-05-26T12:34:56.789Z",
+    "debit": "Entertainment",
+    "debit_category": "Expense",
+    "credit": "Cash",
+    "credit_category": "Asset",
+    "folio": "",
+    "amount": 100,
     "user": "Harry",
     "project": "Personal",
     "ledger": "General"

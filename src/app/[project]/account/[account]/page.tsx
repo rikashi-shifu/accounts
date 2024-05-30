@@ -5,10 +5,9 @@ import AccountBlock from "@/components/account/AccountBlock";
 import AccountFooter from "@/components/account/AccountFooter";
 import AccountHeader from "@/components/account/AccountHeader";
 import Header from "@/components/layout/Header";
+import moment from "moment";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
-const show = true;
 
 interface Transaction {
   id: string;
@@ -23,6 +22,8 @@ interface Transaction {
   project: string;
   ledger: string;
 }
+
+const year = 2024;
 
 const Account = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -46,7 +47,8 @@ const Account = () => {
       .filter((transaction) => {
         return (
           transaction.project.toLowerCase().replace(/ /g, "-") === project &&
-          transaction.debit.toLowerCase().replace(/ /g, "-") === account
+          transaction.debit.toLowerCase().replace(/ /g, "-") === account &&
+          moment(transaction.date).year() === year
         );
       })
       .forEach((transaction) => {
@@ -58,7 +60,8 @@ const Account = () => {
       .filter((transaction) => {
         return (
           transaction.project.toLowerCase().replace(/ /g, "-") === project &&
-          transaction.credit.toLowerCase().replace(/ /g, "-") === account
+          transaction.credit.toLowerCase().replace(/ /g, "-") === account &&
+          moment(transaction.date).year() === year
         );
       })
       .forEach((transaction) => {
@@ -90,11 +93,17 @@ const Account = () => {
             /> */}
             {transactions
               .filter((transaction) => {
+                console.log();
                 return (
                   transaction.project.toLowerCase().replace(/ /g, "-") ===
                     project &&
-                  transaction.debit.toLowerCase().replace(/ /g, "-") === account
+                  transaction.debit.toLowerCase().replace(/ /g, "-") ===
+                    account &&
+                  moment(transaction.date).year() === year
                 );
+              })
+              .sort((a, b) => {
+                return Number(new Date(a.date)) - Number(new Date(b.date));
               })
               .map((transaction, key) => {
                 return (
@@ -135,8 +144,12 @@ const Account = () => {
                   transaction.project.toLowerCase().replace(/ /g, "-") ===
                     project &&
                   transaction.credit.toLowerCase().replace(/ /g, "-") ===
-                    account
+                    account &&
+                  moment(transaction.date).year() === year
                 );
+              })
+              .sort((a, b) => {
+                return Number(new Date(a.date)) - Number(new Date(b.date));
               })
               .map((transaction, key) => {
                 return (

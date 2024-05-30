@@ -1,5 +1,6 @@
 import React from "react";
 import { IoIosMore } from "react-icons/io";
+import moment from "moment";
 
 interface AccountBlockProps {
   date: string;
@@ -14,9 +15,11 @@ const AccountBlock: React.FC<AccountBlockProps> = ({
   folio,
   amount,
 }) => {
+  const formattedDate = moment(date).format("MMM D");
+
   return (
     <div className="relative flex items-center border-b py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]">
-      <div className="w-[20%]">{date}</div>
+      <div className="w-[20%]">{formattedDate}</div>
       {/* TODO: Ctrl click navigate to page */}
       <div className="w-[50%]">{details}</div>
       <div className="w-[10%]">{folio}</div>
