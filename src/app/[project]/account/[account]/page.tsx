@@ -9,7 +9,6 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const show = true;
-const total = 180;
 
 interface Transaction {
   id: string;
@@ -113,7 +112,6 @@ const Account = () => {
             {balance < 0 && (
               <AccountBalance
                 date="May 31"
-                show={show}
                 folio="c/d"
                 amount={Math.abs(balance)}
               />
@@ -156,7 +154,6 @@ const Account = () => {
             {balance > 0 && (
               <AccountBalance
                 date="May 31"
-                show={show}
                 folio="c/d"
                 amount={Math.abs(balance)}
               />
