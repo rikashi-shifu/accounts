@@ -18,7 +18,7 @@ const AccountBlock: React.FC<AccountBlockProps> = ({
   const formattedDate = moment(date).format("MMM D");
 
   return (
-    <div className="relative flex items-center border-b py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]">
+    <div className="relative flex items-center border-b py-2 px-4 text-sm text-neutral-500 hover:bg-[#f4f4f4]">
       <div className="w-[20%]">{formattedDate}</div>
       {/* TODO: Ctrl click navigate to page */}
       <div className="w-[50%]">{details}</div>

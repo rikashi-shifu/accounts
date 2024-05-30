@@ -22,12 +22,11 @@ interface Project {
 }
 
 const PageNavigation = () => {
+  const param = useParams();
+  const { showNav } = useNavContext();
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project>();
   const [showCloseNavBtn, setShowCloseNavBtn] = useState(false);
-
-  const param = useParams();
-  const { showNav } = useNavContext();
 
   useEffect(() => {
     void (async () => {

@@ -6,7 +6,7 @@ interface AccountFooterProps {
 
 const AccountFooter: React.FC<AccountFooterProps> = ({ total }) => {
   return (
-    <div className="flex border-t py-2 px-4 text-xs">
+    <div className="flex border-t py-2 px-4 text-sm">
       <div className="w-[20%]"></div>
       <div className="w-[50%]"></div>
       <div className="w-[10%]"></div>

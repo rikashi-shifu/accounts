@@ -17,6 +17,7 @@ interface Project {
 }
 
 const Home = () => {
+  const router = useRouter();
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -30,8 +31,6 @@ const Home = () => {
       );
     })();
   }, []);
-
-  const router = useRouter();
 
   return (
     <div className="p-6 border flex flex-col gap-5 w-full z-10 h-full">

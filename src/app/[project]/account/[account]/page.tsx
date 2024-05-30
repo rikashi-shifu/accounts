@@ -23,13 +23,14 @@ interface Transaction {
   ledger: string;
 }
 
+const month = 4;
 const year = 2024;
 
 const Account = () => {
+  const { project, account } = useParams();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
-  const { project, account } = useParams();
 
   useEffect(() => {
     void (async () => {
@@ -48,6 +49,7 @@ const Account = () => {
         return (
           transaction.project.toLowerCase().replace(/ /g, "-") === project &&
           transaction.debit.toLowerCase().replace(/ /g, "-") === account &&
+          moment(transaction.date).month() === month &&
           moment(transaction.date).year() === year
         );
       })
@@ -61,6 +63,7 @@ const Account = () => {
         return (
           transaction.project.toLowerCase().replace(/ /g, "-") === project &&
           transaction.credit.toLowerCase().replace(/ /g, "-") === account &&
+          moment(transaction.date).month() === month &&
           moment(transaction.date).year() === year
         );
       })
@@ -99,6 +102,7 @@ const Account = () => {
                     project &&
                   transaction.debit.toLowerCase().replace(/ /g, "-") ===
                     account &&
+                  moment(transaction.date).month() === month &&
                   moment(transaction.date).year() === year
                 );
               })
@@ -145,6 +149,7 @@ const Account = () => {
                     project &&
                   transaction.credit.toLowerCase().replace(/ /g, "-") ===
                     account &&
+                  moment(transaction.date).month() === month &&
                   moment(transaction.date).year() === year
                 );
               })

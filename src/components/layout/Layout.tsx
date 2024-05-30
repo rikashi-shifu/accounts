@@ -20,8 +20,8 @@ export const useNavContext = () => {
 };
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const [showNav, setShowNav] = useState(true);
   const pathname = usePathname();
+  const [showNav, setShowNav] = useState(true);
 
   return (
     <div className="flex w-full">
