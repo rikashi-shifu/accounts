@@ -14,7 +14,7 @@
   },
   {
     "id": "uuid2",
-    "date": "May 28",
+    "date": "May 30",
     "debit": "Food",
     "debit_category": "Expense",
     "credit": "Cash",
@@ -27,7 +27,7 @@
   },
   {
     "id": "uuid3",
-    "date": "May 28",
+    "date": "May 26",
     "debit": "Transport",
     "debit_category": "Expense",
     "credit": "Cash",
@@ -40,7 +40,7 @@
   },
   {
     "id": "uuid4",
-    "date": "May 28",
+    "date": "May 24 ",
     "debit": "Tithe",
     "debit_category": "Expense",
     "credit": "Cash",

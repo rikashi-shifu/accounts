@@ -33,6 +33,11 @@
         "name": "Credit Supplier",
         "category": "Liability",
         "ledger": "Purchases"
+      },
+      {
+        "name": "Bank",
+        "category": "Liability",
+        "ledger": "Purchases"
       }
     ]
   },
