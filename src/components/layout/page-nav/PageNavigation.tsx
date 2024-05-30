@@ -50,7 +50,9 @@ const PageNavigation = () => {
 
   return (
     <div
-      className={`${!showNav && "-translate-x-72"} w-72 bg-black duration-300`}
+      className={`${
+        !showNav && "-translate-x-72"
+      } w-72 bg-black duration-300 overflow-y-scroll pb-3 relative`}
       onMouseOver={() => setShowCloseNavBtn(true)}
       onMouseLeave={() => setShowCloseNavBtn(false)}
     >
@@ -59,7 +61,7 @@ const PageNavigation = () => {
         showCloseNavBtn={showCloseNavBtn}
       />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 pt-20">
         <PageCategoryBlock name="Financial Statement">
           <div className="flex flex-col gap-2">
             <PageStatementBlock name="Income Statement" />

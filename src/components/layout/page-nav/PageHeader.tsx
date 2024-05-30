@@ -11,7 +11,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ name, showCloseNavBtn }) => {
   const { setShowNav } = useNavContext();
 
   return (
-    <div className="py-6 flex justify-between items-center px-4">
+    <div className="py-6 flex justify-between items-center px-4 fixed w-72 bg-black">
       <h1 className="text-white text-lg font-semibold">{name}</h1>
       <div className="flex gap-2">
         <button

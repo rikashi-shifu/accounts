@@ -37,6 +37,7 @@ const ProjectNavigation = () => {
       <div className="flex flex-col justify-center items-center w-full">
         <ProjectHeader />
         <hr className="w-1/2 border-[#323232]" />
+        {/* TODO: Scrollable overflowing projects navigation */}
         <div className="h-full flex pt-4 flex-col gap-4">
           {projects.map((project, key) => {
             return <ProjectBlock key={key} project={project} />;
