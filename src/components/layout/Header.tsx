@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ name }) => {
           Today
         </button>
         <button className="bg-black text-white rounded-lg h-10 w-20 text-xs">
-          Share
+          Export
         </button>
       </div>
     </div>

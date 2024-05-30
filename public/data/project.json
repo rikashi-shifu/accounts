@@ -15,6 +15,21 @@
         "ledger": "General"
       },
       {
+        "name": "Food",
+        "category": "Expense",
+        "ledger": "General"
+      },
+      {
+        "name": "Transport",
+        "category": "Expense",
+        "ledger": "General"
+      },
+      {
+        "name": "Tithe",
+        "category": "Expense",
+        "ledger": "General"
+      },
+      {
         "name": "Credit Supplier",
         "category": "Liability",
         "ledger": "Purchases"

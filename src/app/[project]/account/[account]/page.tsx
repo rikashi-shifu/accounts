@@ -1,109 +1,79 @@
 "use client";
+import AccountAddTransaction from "@/components/account/AccountAddTransaction";
+import AccountBalance from "@/components/account/AccountBalance";
+import AccountBlock from "@/components/account/AccountBlock";
+import AccountFooter from "@/components/account/AccountFooter";
+import AccountHeader from "@/components/account/AccountHeader";
 import Header from "@/components/layout/Header";
 import { useParams } from "next/navigation";
-import React, { useEffect } from "react";
-import { IoIosAdd, IoIosMore } from "react-icons/io";
-
-const AccountHeader = () => {
-  return (
-    <div className="flex border-b py-3 px-4 bg-[#eeeeee] text-sm font-semibold">
-      <div className="w-[20%]">Date</div>
-      <div className="w-[50%]">Details</div>
-      <div className="w-[10%]">Folio</div>
-      <div className="w-[20%]">Amount</div>
-    </div>
-  );
-};
-
-interface AccountBlockProps {
-  date: string;
-  details: string;
-  folio?: string;
-  amount: number;
-}
-
-const AccountBlock: React.FC<AccountBlockProps> = ({
-  date,
-  details,
-  folio,
-  amount,
-}) => {
-  return (
-    <div className="relative flex items-center border-b py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]">
-      <div className="w-[20%]">{date}</div>
-      <div className="w-[50%]">{details}</div>
-      <div className="w-[10%]">{folio}</div>
-      <div className="w-[20%]">{amount}</div>
-      <button className="absolute right-1 rounded-md hover:bg-[#e9e9e9] px-2 py-1 flex justify-center items-center">
-        <IoIosMore />
-      </button>
-    </div>
-  );
-};
-
-const AccountAddTransaction = () => {
-  return (
-    <div className="w-full flex justify-center items-center">
-      <button className="flex w-[98%] justify-center items-center my-1 py-1 text-sm text-neutral-500 bg-[#e9e9e9] rounded-md opacity-50 hover:opacity-100">
-        <IoIosAdd />
-      </button>
-    </div>
-  );
-};
-
-interface AccountFooterProps {
-  total: number;
-}
-
-const AccountFooter: React.FC<AccountFooterProps> = ({ total }) => {
-  return (
-    <div className="flex border-t py-2 px-4 text-xs">
-      <div className="w-[20%]"></div>
-      <div className="w-[50%]"></div>
-      <div className="w-[10%]"></div>
-      <div className="w-[20%] font-semibold">{total}</div>
-    </div>
-  );
-};
-
-interface AccountBalanceProps {
-  date: string;
-  show: boolean;
-  folio: string;
-  amount: number;
-}
-
-const AccountBalance: React.FC<AccountBalanceProps> = ({
-  date,
-  show,
-  folio,
-  amount,
-}) => {
-  return (
-    <div
-      className={`${!show && "hidden"} ${
-        folio === "b/d" ? "border-b" : "border-t"
-      } flex py-2 px-4 text-xs text-neutral-500 hover:bg-[#f4f4f4]`}
-    >
-      <div className="w-[20%]">{date}</div>
-      <div className="w-[50%]">Balance</div>
-      <div className="w-[10%]">{folio}</div>
-      <div className="w-[20%]">{amount}</div>
-    </div>
-  );
-};
+import React, { useEffect, useState } from "react";
 
 const show = true;
 const total = 180;
 
+interface Transaction {
+  id: string;
+  date: string;
+  debit: string;
+  debit_category: string;
+  credit: string;
+  credit_category: string;
+  folio: string;
+  amount: number;
+  user: string;
+  project: string;
+  ledger: string;
+}
+
 const Account = () => {
-  const { account } = useParams();
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [balance, setBalance] = useState(0);
+  const [total, setTotal] = useState(0);
+  const { project, account } = useParams();
 
   useEffect(() => {
     void (async () => {
-      await fetch("/data/transaction.json");
-    });
-  });
+      await fetch("/data/transaction.json").then(async (response) =>
+        response.json().then(async (transactions) => {
+          setTransactions(transactions);
+        })
+      );
+    })();
+  }, []);
+
+  useEffect(() => {
+    let debitTotal = 0;
+    transactions
+      .filter((transaction) => {
+        return (
+          transaction.project.toLowerCase().replace(/ /g, "-") === project &&
+          transaction.debit.toLowerCase().replace(/ /g, "-") === account
+        );
+      })
+      .forEach((transaction) => {
+        debitTotal += transaction.amount;
+      });
+
+    let creditTotal = 0;
+    transactions
+      .filter((transaction) => {
+        return (
+          transaction.project.toLowerCase().replace(/ /g, "-") === project &&
+          transaction.credit.toLowerCase().replace(/ /g, "-") === account
+        );
+      })
+      .forEach((transaction) => {
+        creditTotal += transaction.amount;
+      });
+
+    setBalance(debitTotal - creditTotal);
+
+    if (debitTotal > creditTotal) {
+      setTotal(debitTotal);
+    } else {
+      setTotal(creditTotal);
+    }
+  }, [transactions, project, account]);
 
   return (
     <div className="w-full h-full flex flex-col gap-5 p-6">
@@ -113,17 +83,41 @@ const Account = () => {
         <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] rounded-s-lg overflow-hidden">
           <div>
             <AccountHeader />
-            <AccountBalance date="May 1" show={show} folio="b/d" amount={100} />
-            <AccountBlock date="May 28" details="Allowance" amount={80} />
+            {/* <AccountBalance
+              date="May 1"
+              show={show}
+              folio="b/d"
+              amount={balance}
+            /> */}
+            {transactions
+              .filter((transaction) => {
+                return (
+                  transaction.project.toLowerCase().replace(/ /g, "-") ===
+                    project &&
+                  transaction.debit.toLowerCase().replace(/ /g, "-") === account
+                );
+              })
+              .map((transaction, key) => {
+                return (
+                  <AccountBlock
+                    key={key}
+                    date={transaction.date}
+                    details={transaction.credit}
+                    amount={transaction.amount}
+                  />
+                );
+              })}
             <AccountAddTransaction />
           </div>
           <div>
-            <AccountBalance
-              date="May 31"
-              show={!show}
-              folio="c/d"
-              amount={90}
-            />
+            {balance < 0 && (
+              <AccountBalance
+                date="May 31"
+                show={show}
+                folio="c/d"
+                amount={Math.abs(balance)}
+              />
+            )}
             <AccountFooter total={total} />
           </div>
         </div>
@@ -131,19 +125,42 @@ const Account = () => {
         <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] border-s-0 rounded-e-lg overflow-hidden">
           <div>
             <AccountHeader />
-            <AccountBalance
+            {/* <AccountBalance
               date="May 1"
               show={!show}
               folio="b/d"
               amount={100}
-            />
-            <AccountBlock date="May 28" details="Food" amount={30} />
-            <AccountBlock date="May 28" details="Transport" amount={50} />
-            <AccountBlock date="May 28" details="Tithe" amount={10} />
+            /> */}
+            {transactions
+              .filter((transaction) => {
+                return (
+                  transaction.project.toLowerCase().replace(/ /g, "-") ===
+                    project &&
+                  transaction.credit.toLowerCase().replace(/ /g, "-") ===
+                    account
+                );
+              })
+              .map((transaction, key) => {
+                return (
+                  <AccountBlock
+                    key={key}
+                    date={transaction.date}
+                    details={transaction.debit}
+                    amount={transaction.amount}
+                  />
+                );
+              })}
             <AccountAddTransaction />
           </div>
           <div>
-            <AccountBalance date="May 31" show={show} folio="c/d" amount={90} />
+            {balance > 0 && (
+              <AccountBalance
+                date="May 31"
+                show={show}
+                folio="c/d"
+                amount={Math.abs(balance)}
+              />
+            )}
             <AccountFooter total={total} />
           </div>
         </div>
