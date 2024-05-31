@@ -63,5 +63,31 @@
     "user": "Harry",
     "project": "Personal",
     "ledger": "General"
+  },
+  {
+    "id": "uuid10",
+    "date": "2023-09-26T12:34:56.789Z",
+    "debit": "Cash",
+    "debit_category": "Asset",
+    "credit": "Allowance",
+    "credit_category": "Income",
+    "folio": "",
+    "amount": 300,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
+  },
+  {
+    "id": "uuid11",
+    "date": "2023-04-26T12:34:56.789Z",
+    "debit": "Food",
+    "debit_category": "Expense",
+    "credit": "Cash",
+    "credit_category": "Asset",
+    "folio": "",
+    "amount": 150,
+    "user": "Harry",
+    "project": "Personal",
+    "ledger": "General"
   }
 ]
