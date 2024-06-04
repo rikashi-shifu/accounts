@@ -1,54 +1,45 @@
-"use client";
-import React, { useState } from "react";
-import moment, { Moment } from "moment";
+import React from "react";
+import { Button } from "@mui/material";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 interface HeaderDateProps {
-  showMonth: boolean;
-  selectedDate: Moment;
+  selectedDate: moment.Moment;
   setSelectedDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
+  showMonth: boolean;
 }
 
 const HeaderDate: React.FC<HeaderDateProps> = ({
-  showMonth,
   selectedDate,
   setSelectedDate,
+  showMonth,
 }) => {
-  const [active, setActive] = useState("");
-
   return (
-    <div className="flex items-center justify-between gap-2 border border-neutral-300 rounded-lg overflow-hidden w-40">
-      <button
+    <div className="flex justify-center items-center gap-4">
+      <Button
+        color="inherit"
         onClick={() =>
           setSelectedDate((prev) =>
             prev.clone().subtract(1, showMonth ? "months" : "years")
           )
         }
-        onFocus={() => setActive("prev")}
-        onBlur={() => setActive("")}
-        className={`${
-          active === "prev" && "bg-[#f4f4f4]"
-        } flex justify-center items-center h-full px-3 hover:bg-[#eaeaea] text-sm`}
+        className="rounded-full min-w-10 min-h-10 max-w-10 max-h-10"
       >
-        <GrPrevious />
-      </button>
-      <p className="text-sm truncate">
+        <GrPrevious className="text-neutral-600" />
+      </Button>
+      <p className="text-sm text-neutral-600 truncate">
         {showMonth ? selectedDate.format("MMM yyyy") : selectedDate.year()}
       </p>
-      <button
+      <Button
+        color="inherit"
         onClick={() =>
           setSelectedDate((prev) =>
             prev.clone().add(1, showMonth ? "months" : "years")
           )
         }
-        onFocus={() => setActive("next")}
-        onBlur={() => setActive("")}
-        className={`${
-          active === "next" && "bg-[#f4f4f4]"
-        } flex justify-center items-center h-full px-3 hover:bg-[#eaeaea] text-sm`}
+        className="rounded-full min-w-10 min-h-10 max-w-10 max-h-10"
       >
-        <GrNext />
-      </button>
+        <GrNext className="text-neutral-600" />
+      </Button>
     </div>
   );
 };

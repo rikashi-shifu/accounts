@@ -4,7 +4,6 @@ import AccountBalance from "@/components/account/AccountBalance";
 import AccountBlock from "@/components/account/AccountBlock";
 import AccountFooter from "@/components/account/AccountFooter";
 import AccountHeader from "@/components/account/AccountHeader";
-import Header from "@/components/header/Header";
 import moment from "moment";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -29,6 +28,7 @@ const Account = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
+  // TODO: Make the selected value remain when navigating within the same project
   const [selectedDate, setSelectedDate] = useState(today);
   const [showMonth, setShowMonth] = useState(true);
 
@@ -82,99 +82,90 @@ const Account = () => {
   }, [transactions, filterTransactions]);
 
   return (
-    <div className="w-full h-full flex flex-col gap-5 p-6">
-      <Header
-        name={account.toString()}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        showMonth={showMonth}
-        setShowMonth={setShowMonth}
-      />
-      <div className="flex rounded-lg">
-        {/* left */}
-        <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] rounded-s-lg overflow-hidden">
-          <div>
-            <AccountHeader />
-            {/* TODO: Balance b/d */}
-            {/* <AccountBalance
+    <div className="flex rounded-lg">
+      {/* left */}
+      <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] rounded-s-lg overflow-hidden">
+        <div>
+          <AccountHeader />
+          {/* TODO: Balance b/d */}
+          {/* <AccountBalance
               date="May 1"
               show={show}
               folio="b/d"
               amount={balance}
             /> */}
-            {filterTransactions(transactions, "debit")
-              .sort((a, b) => {
-                return Number(new Date(a.date)) - Number(new Date(b.date));
-              })
-              .map((transaction, key) => {
-                return (
-                  <AccountBlock
-                    key={key}
-                    date={transaction.date}
-                    details={transaction.credit}
-                    amount={transaction.amount}
-                  />
-                );
-              })}
-            <AccountAddTransaction />
-          </div>
-          <div>
-            {balance < 0 && (
-              <AccountBalance
-                date={
-                  showMonth
-                    ? selectedDate.endOf("month").format("MMM D")
-                    : "Dec 31"
-                }
-                folio="c/d"
-                amount={Math.abs(balance)}
-              />
-            )}
-            <AccountFooter total={total} />
-          </div>
+          {filterTransactions(transactions, "debit")
+            .sort((a, b) => {
+              return Number(new Date(a.date)) - Number(new Date(b.date));
+            })
+            .map((transaction, key) => {
+              return (
+                <AccountBlock
+                  key={key}
+                  date={transaction.date}
+                  details={transaction.credit}
+                  amount={transaction.amount}
+                />
+              );
+            })}
+          <AccountAddTransaction />
         </div>
-        {/* right */}
-        <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] border-s-0 rounded-e-lg overflow-hidden">
-          <div>
-            <AccountHeader />
-            {/* TODO: Balance b/d */}
-            {/* <AccountBalance
+        <div>
+          {balance < 0 && (
+            <AccountBalance
+              date={
+                showMonth
+                  ? selectedDate.endOf("month").format("MMM D")
+                  : "Dec 31"
+              }
+              folio="c/d"
+              amount={Math.abs(balance)}
+            />
+          )}
+          <AccountFooter total={total} />
+        </div>
+      </div>
+      {/* right */}
+      <div className="w-1/2 flex flex-col justify-between border border-[#dbdbdb] border-s-0 rounded-e-lg overflow-hidden">
+        <div>
+          <AccountHeader />
+          {/* TODO: Balance b/d */}
+          {/* <AccountBalance
               date="May 1"
               show={!show}
               folio="b/d"
               amount={100}
             /> */}
-            {filterTransactions(transactions, "credit")
-              .sort((a, b) => {
-                return Number(new Date(a.date)) - Number(new Date(b.date));
-              })
-              .map((transaction, key) => {
-                return (
-                  <AccountBlock
-                    key={key}
-                    date={transaction.date}
-                    details={transaction.debit}
-                    amount={transaction.amount}
-                  />
-                );
-              })}
-            <AccountAddTransaction />
-          </div>
-          <div>
-            {balance > 0 && (
-              <AccountBalance
-                date={
-                  showMonth
-                    ? selectedDate.endOf("month").format("MMM D")
-                    : "Dec 31"
-                }
-                folio="c/d"
-                amount={Math.abs(balance)}
-              />
-            )}
-            {/*  */}
-            <AccountFooter total={total} />
-          </div>
+          {filterTransactions(transactions, "credit")
+            .sort((a, b) => {
+              return Number(new Date(a.date)) - Number(new Date(b.date));
+            })
+            .map((transaction, key) => {
+              return (
+                <AccountBlock
+                  key={key}
+                  date={transaction.date}
+                  details={transaction.debit}
+                  amount={transaction.amount}
+                />
+              );
+            })}
+          <AccountAddTransaction />
+        </div>
+        <div>
+          {balance > 0 && (
+            <AccountBalance
+              date={
+                showMonth
+                  ? selectedDate.endOf("month").format("MMM D")
+                  : "Dec 31"
+              }
+              folio="c/d"
+              amount={Math.abs(balance)}
+            />
+          )}
+          {/*  */}
+          <AccountFooter total={total} />
         </div>
       </div>
     </div>

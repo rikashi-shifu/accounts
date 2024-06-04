@@ -3,6 +3,7 @@ import React, { ReactNode, createContext, useContext, useState } from "react";
 import ProjectNavigation from "./project-nav/ProjectNavigation";
 import PageNavigation from "./page-nav/PageNavigation";
 import { usePathname } from "next/navigation";
+import Header from "../header/Header";
 
 interface NavContextType {
   showNav: boolean;
@@ -34,9 +35,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <main
         className={`${
           !showNav && "-ms-72"
-        } w-full bg-[#fbfbfb] duration-300 flex justify-center items-center h-full`}
+        } w-full bg-[#fbfbfb] duration-300 flex flex-col justify-center items-center h-full`}
       >
-        {children}
+        <div
+          className={`${
+            pathname === "/" ? "hidden" : "flex p-6"
+          } justify-between items-center w-full`}
+        >
+          <Header />
+        </div>
+        <div className="w-full h-full flex flex-col gap-5 px-6">{children}</div>
       </main>
     </div>
   );

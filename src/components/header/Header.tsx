@@ -1,58 +1,49 @@
 "use client";
 import React, { useState } from "react";
-import HeaderDate from "./HeaderDate";
-import HeaderButton from "./HeaderButton";
 import moment from "moment";
 
-interface HeaderProps {
-  name: string;
-  selectedDate: moment.Moment;
-  setSelectedDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
-  showMonth: boolean;
-  setShowMonth: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { useParams, usePathname } from "next/navigation";
+import HeaderDate from "./HeaderDate";
+import HeaderMonthOrYear from "./HeaderMonthOrYear";
+import HeaderToday from "./HeaderToday";
 
-const Header: React.FC<HeaderProps> = ({
-  name,
-  selectedDate,
-  setSelectedDate,
-  showMonth,
-  setShowMonth,
-}) => {
+const Header = () => {
+  const { project, account } = useParams();
+  const pathname = usePathname();
+
   const today = moment();
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [showMonth, setShowMonth] = React.useState<boolean>(true);
 
   return (
-    <div className="flex items-center justify-between">
-      <h1 className="font-semibold text-2xl">
-        {name
-          .toString()
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (char) => char.toUpperCase())}
+    <>
+      <h1 className="font-semibold text-3xl">
+        {account
+          ? account
+              .toString()
+              .replace(/-/g, " ")
+              .replace(/\b\w/g, (char) => char.toUpperCase())
+          : pathname === `/${project}`
+          ? "Dashboard"
+          : pathname.includes("income-statement")
+          ? "Income Statement"
+          : "Balance Sheet"}
       </h1>
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         <HeaderDate
-          showMonth={showMonth}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
+          showMonth={showMonth}
         />
-        <HeaderButton
-          onClick={() => setShowMonth((prev) => !prev)}
-          content={showMonth ? "Month" : "Year"}
-        />
-        <HeaderButton
-          onClick={() => {
-            setShowMonth(true);
-            setSelectedDate(today);
-          }}
-          content="Today"
-        />
-        <HeaderButton
-          onClick={() => console.log("hit")}
-          content="Export"
-          dark={true}
+        <HeaderMonthOrYear showMonth={showMonth} setShowMonth={setShowMonth} />
+        {/* Today Button */}
+        <HeaderToday
+          today={today}
+          setSelectedDate={setSelectedDate}
+          setShowMonth={setShowMonth}
         />
       </div>
-    </div>
+    </>
   );
 };
 
