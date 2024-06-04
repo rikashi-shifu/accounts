@@ -44,7 +44,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
         >
           <Header />
         </div>
-        <div className="w-full h-full flex flex-col gap-5 px-6">{children}</div>
+        <div
+          className={`${
+            pathname !== "/" && "w-full h-full flex flex-col gap-5 px-6"
+          }`}
+        >
+          {children}
+        </div>
       </main>
     </div>
   );
