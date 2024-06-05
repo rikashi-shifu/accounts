@@ -4,6 +4,7 @@ import ProjectNavigation from "./project-nav/ProjectNavigation";
 import PageNavigation from "./page-nav/PageNavigation";
 import { usePathname } from "next/navigation";
 import Header from "../header/Header";
+import moment from "moment";
 
 interface NavContextType {
   showNav: boolean;
@@ -15,7 +16,26 @@ const NavContext = createContext<NavContextType | undefined>(undefined);
 export const useNavContext = () => {
   const context = useContext(NavContext);
   if (!context) {
-    throw new Error("useNavContext must be used within a NavContext.Provider");
+    throw new Error(
+      "useNavContext must be used within the NavContext.Provider"
+    );
+  }
+  return context;
+};
+
+interface DateContextType {
+  selectedDate: moment.Moment;
+  showMonth: boolean;
+}
+
+const DateContext = createContext<DateContextType | undefined>(undefined);
+
+export const useDateContext = () => {
+  const context = useContext(DateContext);
+  if (!context) {
+    throw new Error(
+      "useDateContext must be used within the DateContext.Provider"
+    );
   }
   return context;
 };
@@ -24,14 +44,19 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const [showNav, setShowNav] = useState(true);
 
+  const today = moment();
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [showMonth, setShowMonth] = React.useState<boolean>(true);
+
   return (
     <div className="flex w-full">
-      <NavContext.Provider value={{ showNav, setShowNav }}>
-        <nav className={`${pathname === "/" ? "hidden" : "flex"} z-10`}>
+      <nav className={`${pathname === "/" ? "hidden" : "flex"} z-10`}>
+        <NavContext.Provider value={{ showNav, setShowNav }}>
           <ProjectNavigation />
           <PageNavigation />
-        </nav>
-      </NavContext.Provider>
+        </NavContext.Provider>
+      </nav>
+
       <main
         className={`${
           !showNav && "-ms-72"
@@ -42,14 +67,22 @@ const Layout = ({ children }: { children: ReactNode }) => {
             pathname === "/" ? "hidden" : "flex p-6"
           } justify-between items-center w-full`}
         >
-          <Header />
+          <Header
+            today={today}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            showMonth={showMonth}
+            setShowMonth={setShowMonth}
+          />
         </div>
         <div
           className={`${
             pathname !== "/" && "w-full h-full flex flex-col gap-5 px-6"
           }`}
         >
-          {children}
+          <DateContext.Provider value={{ selectedDate, showMonth }}>
+            {children}
+          </DateContext.Provider>
         </div>
       </main>
     </div>

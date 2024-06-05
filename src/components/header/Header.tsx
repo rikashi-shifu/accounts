@@ -1,19 +1,28 @@
 "use client";
-import React, { useState } from "react";
-import moment from "moment";
+import React from "react";
 
 import { useParams, usePathname } from "next/navigation";
 import HeaderDate from "./HeaderDate";
 import HeaderMonthOrYear from "./HeaderMonthOrYear";
 import HeaderToday from "./HeaderToday";
 
-const Header = () => {
+interface HeaderProps {
+  today: moment.Moment;
+  selectedDate: moment.Moment;
+  setSelectedDate: React.Dispatch<React.SetStateAction<moment.Moment>>;
+  showMonth: boolean;
+  setShowMonth: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: React.FC<HeaderProps> = ({
+  today,
+  selectedDate,
+  setSelectedDate,
+  showMonth,
+  setShowMonth,
+}) => {
   const { project, account } = useParams();
   const pathname = usePathname();
-
-  const today = moment();
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [showMonth, setShowMonth] = React.useState<boolean>(true);
 
   return (
     <>

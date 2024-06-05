@@ -4,6 +4,7 @@ import AccountBalance from "@/components/account/AccountBalance";
 import AccountBlock from "@/components/account/AccountBlock";
 import AccountFooter from "@/components/account/AccountFooter";
 import AccountHeader from "@/components/account/AccountHeader";
+import { useDateContext } from "@/components/layout/Layout";
 import moment from "moment";
 import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -24,13 +25,10 @@ interface Transaction {
 
 const Account = () => {
   const { project, account } = useParams();
-  const today = moment();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState(0);
   const [total, setTotal] = useState(0);
-  // TODO: Make the selected value remain when navigating within the same project
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [showMonth, setShowMonth] = useState(true);
+  const { selectedDate, showMonth } = useDateContext();
 
   useEffect(() => {
     void (async () => {
@@ -41,9 +39,6 @@ const Account = () => {
       );
     })();
   }, []);
-
-  // TODO: Testing
-  useEffect(() => console.log(selectedDate), [selectedDate]);
 
   const filterTransactions = useCallback(
     (transactions: Transaction[], type: "debit" | "credit") => {
