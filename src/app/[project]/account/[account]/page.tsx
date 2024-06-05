@@ -30,16 +30,6 @@ const Account = () => {
   const [total, setTotal] = useState(0);
   const { selectedDate, showMonth } = useDateContext();
 
-  useEffect(() => {
-    void (async () => {
-      await fetch("/data/transaction.json").then(async (response) =>
-        response.json().then(async (transactions) => {
-          setTransactions(transactions);
-        })
-      );
-    })();
-  }, []);
-
   const filterTransactions = useCallback(
     (transactions: Transaction[], type: "debit" | "credit") => {
       return transactions.filter((transaction) => {
