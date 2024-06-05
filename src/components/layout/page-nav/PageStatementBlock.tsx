@@ -19,7 +19,7 @@ const PageStatementBlock: React.FC<PageStatementBlockProps> = ({ name }) => {
         pathname.includes(formattedName) && !pathname.includes("account")
           ? "border-neutral-500"
           : "border-transparent"
-      } p-2 text-start text-sm rounded-md bg-[#1f1f1f] hover:border-neutral-500 border ps-3 text-neutral-300`}
+      } duration-300 p-2 text-start text-sm rounded-md bg-[#1f1f1f] hover:border-neutral-500 border ps-3 text-neutral-300`}
     >
       {name}
     </button>
