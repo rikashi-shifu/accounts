@@ -1,7 +1,14 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 const Home = () => {
-  return <div>Landing page</div>;
+  const [isLogin, setIsLogin] = useState(true);
+
+  if (isLogin) {
+    return <div>Projects</div>;
+  } else {
+    return <div>Landing page</div>;
+  }
 };
 
 export default Home;
