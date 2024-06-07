@@ -1,21 +1,24 @@
 "use client";
+{
+  /*
+TODO: Find a way to remove 'use client'
+so that nav-scrollable can remain a server
+component allowing you to fetch data directly
+*/
+}
 import SelectProject from "./select-project";
 import NavScrollable from "./nav-scrollable/nav-scrollable";
-import { createContext, useState } from "react";
-
-export const ProjectContext = createContext("");
+import ProjectContextProvider from "./project-context-provider";
 
 const NavBody = () => {
-  const [selectedProject, setSelectedProject] = useState("");
-
   return (
     <div className="flex flex-col gap-3">
-      <ProjectContext.Provider value={selectedProject}>
+      <ProjectContextProvider>
         <div className="flex justify-center items-center px-1">
-          <SelectProject setSelectedProject={setSelectedProject} />
+          <SelectProject />
         </div>
         <NavScrollable />
-      </ProjectContext.Provider>
+      </ProjectContextProvider>
     </div>
   );
 };

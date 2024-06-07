@@ -1,11 +1,5 @@
 "use client";
-import React, {
-  type Dispatch,
-  SetStateAction,
-  useState,
-  useEffect,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -23,7 +17,7 @@ import {
 } from "@/components/ui/popover";
 import { CommandList } from "cmdk";
 import { useRouter } from "next/navigation";
-import { ProjectContext } from "./nav-body";
+import { ProjectContext } from "./project-context-provider";
 
 const projects = [
   {
@@ -40,16 +34,10 @@ const projects = [
   },
 ];
 
-interface SelectProjectProps {
-  setSelectedProject: Dispatch<SetStateAction<string>>;
-}
-
-const SelectProject: React.FC<SelectProjectProps> = ({
-  setSelectedProject,
-}) => {
+const SelectProject = ({}) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const selectedProject = useContext(ProjectContext);
+  const { selectedProject, setSelectedProject } = useContext(ProjectContext);
 
   useEffect(() => {
     if (selectedProject === "") {

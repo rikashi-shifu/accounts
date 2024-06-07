@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import NavButton from "./nav-button";
 import NavAccordian from "./nav-accordian";
 import { ScrollArea } from "../../../ui/scroll-area";
-import { ProjectContext } from "../nav-body";
+import { ProjectContext } from "../project-context-provider";
 
 const NavScrollable = () => {
-  const selectedProject = useContext(ProjectContext);
+  const { selectedProject } = useContext(ProjectContext);
 
   return (
     <ScrollArea className="h-[800px] dark">

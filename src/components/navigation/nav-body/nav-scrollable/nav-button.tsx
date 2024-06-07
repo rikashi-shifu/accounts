@@ -1,7 +1,7 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useContext } from "react";
-import { ProjectContext } from "../nav-body";
+import { ProjectContext } from "../project-context-provider";
 
 interface NavButtonProps {
   primary?: boolean;
@@ -20,7 +20,7 @@ const NavButton: React.FC<NavButtonProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const selectedProject = useContext(ProjectContext);
+  const { selectedProject } = useContext(ProjectContext);
 
   return (
     <button
