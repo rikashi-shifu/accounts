@@ -1,32 +1,63 @@
 "use client";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 interface NavigationButtonProps {
+  primary?: boolean;
+  secondary?: boolean;
+  tertiary?: boolean;
   path: string;
   label: string;
-  isAccount?: boolean;
 }
 
 const NavigationButton: React.FC<NavigationButtonProps> = ({
+  primary,
+  secondary,
+  tertiary,
   path,
   label,
-  isAccount,
 }) => {
   const router = useRouter();
-  const { account } = useParams();
   const pathname = usePathname();
+  const selectedProject = "personal";
+  console.log(pathname);
 
   return (
     <button
-      onClick={() => {
-        router.push(`/project/personal${isAccount ? "/account" : ""}${path}`);
-      }}
+      onClick={() =>
+        router.push(
+          primary
+            ? `/project/${selectedProject}`
+            : secondary
+            ? `/project/${selectedProject}/${path}`
+            : `/project/${selectedProject}/account/${path}`
+        )
+      }
       className={`${
-        isAccount
-          ? `/${account}` === path && "bg-secondary"
-          : `${pathname}` === `/project/personal${path}` && "bg-secondary"
-      } px-3 py-2 rounded-lg w-full text-start hover:bg-secondary`}
+        primary &&
+        `      ${
+          pathname.toString() === `/project/${selectedProject}`
+            ? "border-neutral-500 text-neutral-300"
+            : "border-transparent"
+        } bg-[#151515] font-semibold text-neutral-400 p-4`
+      } 
+      ${
+        secondary &&
+        `${
+          pathname.toString() === `/project/${selectedProject}/${path}`
+            ? "border-neutral-500"
+            : "border-transparent"
+        } bg-[#2c2c2c] text-neutral-300 px-3 py-2`
+      }
+      ${
+        tertiary &&
+        `${
+          pathname.toString() === `/project/${selectedProject}/account/${path}`
+            ? "border-neutral-500"
+            : "border-transparent"
+        } bg-[#3b3b3b] text-neutral-300 px-3 py-2`
+      }
+       transition-all duration-300 w-full text-start rounded-md border hover:border-neutral-500`}
     >
       {label}
     </button>

@@ -19,24 +19,16 @@ import { CommandList } from "cmdk";
 
 const projects = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: "personal",
+    label: "Personal",
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: "work",
+    label: "Work",
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
+    value: "freelance",
+    label: "Freelance",
   },
 ];
 
@@ -51,17 +43,17 @@ const SelectProject = () => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-11/12 h-12 justify-between"
+          className="w-11/12 h-12 justify-between dark text-white border-2"
         >
           {value
             ? projects.find((project) => project.value === value)?.label
-            : "Select framework..."}
+            : "Select project..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-full p-0">
+      <PopoverContent className="p-0 dark border-2">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search project..." />
           <CommandEmpty>No project found.</CommandEmpty>
           <CommandGroup>
             <CommandList>
