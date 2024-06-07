@@ -3,14 +3,14 @@ import React, { useState, type ReactNode } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 
-interface NavigationAccordianProps {
+interface NavAccordianProps {
   primary?: boolean;
   secondary?: boolean;
   label: string;
   children: ReactNode;
 }
 
-const NavigationAccordian: React.FC<NavigationAccordianProps> = ({
+const NavAccordian: React.FC<NavAccordianProps> = ({
   primary,
   secondary,
   label,
@@ -20,8 +20,10 @@ const NavigationAccordian: React.FC<NavigationAccordianProps> = ({
 
   return (
     <div
-      className={`${primary && "bg-[#151515]"} 
-      ${secondary && "bg-[#2c2c2c]"} rounded-md flex flex-col gap-4 p-4`}
+      className={`${primary && "bg-[#151515] p-4"} 
+      ${
+        secondary && "bg-[#2c2c2c] py-3 px-4 text-sm"
+      } rounded-md flex flex-col gap-4`}
     >
       <div className="flex justify-between">
         <h1
@@ -45,21 +47,23 @@ const NavigationAccordian: React.FC<NavigationAccordianProps> = ({
           className={`${primary && "hover:bg-[#2c2c2c]"} 
         ${
           secondary && "hover:bg-[#3b3b3b]"
-        } rounded-md w-6 h-6 flex justify-center items-center`}
+        } text-neutral-400 hover:text-neutral-300 rounded-md w-6 h-6 flex justify-center items-center`}
         >
           {showChildren ? (
-            <FiMinus className="text-neutral-300 w-5 h-5" />
+            <FiMinus className="w-5 h-5" />
           ) : (
-            <IoIosAdd className="text-neutral-300 w-5 h-5" />
+            <IoIosAdd className="w-5 h-5" />
           )}
         </button>
       </div>
 
-      <div className={`${showChildren ? "flex" : "hidden"} flex-col gap-2`}>
+      <div
+        className={`${showChildren ? "flex" : "hidden"} flex-col gap-2 pb-1`}
+      >
         {children}
       </div>
     </div>
   );
 };
 
-export default NavigationAccordian;
+export default NavAccordian;

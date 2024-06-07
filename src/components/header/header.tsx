@@ -3,7 +3,7 @@ import HeaderTitle from "./header-title";
 
 const Header = () => {
   return (
-    <div className="h-16 border flex">
+    <div className="h-20 border flex">
       <div className="border w-full flex justify-between items-center px-4">
         <HeaderTitle />
       </div>

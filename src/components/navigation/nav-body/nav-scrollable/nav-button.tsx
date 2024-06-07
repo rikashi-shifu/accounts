@@ -1,8 +1,9 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
+import { ProjectContext } from "../nav-body";
 
-interface NavigationButtonProps {
+interface NavButtonProps {
   primary?: boolean;
   secondary?: boolean;
   tertiary?: boolean;
@@ -10,7 +11,7 @@ interface NavigationButtonProps {
   label: string;
 }
 
-const NavigationButton: React.FC<NavigationButtonProps> = ({
+const NavButton: React.FC<NavButtonProps> = ({
   primary,
   secondary,
   tertiary,
@@ -19,8 +20,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const selectedProject = "personal";
-  console.log(pathname);
+  const selectedProject = useContext(ProjectContext);
 
   return (
     <button
@@ -39,7 +39,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
           pathname.toString() === `/project/${selectedProject}`
             ? "border-neutral-500 text-neutral-300"
             : "border-transparent"
-        } bg-[#151515] font-semibold text-neutral-400 p-4`
+        } bg-[#151515] font-semibold text-neutral-400 h-14`
       } 
       ${
         secondary &&
@@ -47,7 +47,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
           pathname.toString() === `/project/${selectedProject}/${path}`
             ? "border-neutral-500"
             : "border-transparent"
-        } bg-[#2c2c2c] text-neutral-300 px-3 py-2`
+        } bg-[#2c2c2c] text-neutral-300 h-12 text-sm`
       }
       ${
         tertiary &&
@@ -55,13 +55,13 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
           pathname.toString() === `/project/${selectedProject}/account/${path}`
             ? "border-neutral-500"
             : "border-transparent"
-        } bg-[#3b3b3b] text-neutral-300 px-3 py-2`
+        } bg-[#3b3b3b] text-neutral-300 text-sm`
       }
-       transition-all duration-300 w-full text-start rounded-md border hover:border-neutral-500`}
+       h-10 px-4 transition-all duration-300 w-full text-start rounded-md border hover:border-neutral-500`}
     >
       {label}
     </button>
   );
 };
 
-export default NavigationButton;
+export default NavButton;

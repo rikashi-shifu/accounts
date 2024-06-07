@@ -1,5 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, {
+  type Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -16,6 +22,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CommandList } from "cmdk";
+import { useRouter } from "next/navigation";
+import { ProjectContext } from "./nav-body";
 
 const projects = [
   {
@@ -32,9 +40,24 @@ const projects = [
   },
 ];
 
-const SelectProject = () => {
+interface SelectProjectProps {
+  setSelectedProject: Dispatch<SetStateAction<string>>;
+}
+
+const SelectProject: React.FC<SelectProjectProps> = ({
+  setSelectedProject,
+}) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const selectedProject = useContext(ProjectContext);
+
+  useEffect(() => {
+    if (selectedProject === "") {
+      router.push("/project");
+    } else {
+      router.push(`/project/${selectedProject}`);
+    }
+  }, [selectedProject, router]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -43,10 +66,11 @@ const SelectProject = () => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-11/12 h-12 justify-between dark text-white border-2"
+          className="w-11/12 h-14 justify-between dark text-white border-2"
         >
-          {value
-            ? projects.find((project) => project.value === value)?.label
+          {selectedProject
+            ? projects.find((project) => project.value === selectedProject)
+                ?.label
             : "Select project..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -62,7 +86,9 @@ const SelectProject = () => {
                   key={project.value}
                   value={project.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    setSelectedProject(
+                      currentValue === selectedProject ? "" : currentValue
+                    );
                     setOpen(false);
                   }}
                   className="h-12"
@@ -70,7 +96,9 @@ const SelectProject = () => {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === project.value ? "opacity-100" : "opacity-0"
+                      selectedProject === project.value
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
                   {project.label}
