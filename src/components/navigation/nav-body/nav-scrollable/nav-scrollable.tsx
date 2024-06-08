@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext } from "react";
 import NavButton from "./nav-button";
 import NavAccordian from "./nav-accordian";

@@ -28,10 +28,11 @@ const NavAccordian: React.FC<NavAccordianProps> = ({
       <div className="flex justify-between">
         <h1
           className={`${
-            primary && showChildren ? "text-[#c8a1d6]" : "text-neutral-400"
+            primary && (showChildren ? "text-[#c8a1d6]" : "text-neutral-400")
           } 
           ${
-            secondary && showChildren ? "text-neutral-300" : "text-neutral-400"
+            secondary &&
+            (showChildren ? "text-neutral-300" : "text-neutral-400")
           } font-semibold transition-all duration-300`}
         >
           {label}
