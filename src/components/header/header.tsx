@@ -1,16 +1,15 @@
 import React from "react";
 import HeaderTitle from "./header-title";
+import MonthPicker from "./month-picker";
 
 const Header = () => {
   return (
     <div className="h-20 border flex">
-      <div className="border w-full flex justify-between items-center px-4">
+      <div className="w-full flex justify-between items-center px-4">
         <HeaderTitle />
       </div>
-      <div className="border p-5 flex justify-center items-center">
-        <button className="border px-4 py-2 rounded-md hover:bg-secondary">
-          Today
-        </button>
+      <div className="p-5 flex justify-center items-center">
+        <MonthPicker />
       </div>
     </div>
   );

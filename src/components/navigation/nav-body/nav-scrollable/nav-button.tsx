@@ -38,8 +38,8 @@ const NavButton: React.FC<NavButtonProps> = ({
         `      ${
           pathname.toString() === `/project/${selectedProject}`
             ? "border-neutral-500 text-neutral-200"
-            : "border-transparent"
-        } bg-[#151515] font-semibold text-neutral-400 h-14`
+            : "border-transparent text-neutral-400"
+        } bg-[#151515] font-semibold  h-14`
       } 
       ${
         secondary &&

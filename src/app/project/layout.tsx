@@ -1,4 +1,5 @@
 import Header from "@/components/header/header";
+import MonthContextProvider from "@/components/header/month-context-provider";
 import Navigation from "@/components/navigation/navigation";
 
 export default function InnerLayout({
@@ -8,11 +9,12 @@ export default function InnerLayout({
 }>) {
   return (
     <div className="flex h-screen">
-      {/* navigation */}
       <Navigation />
       <div className="w-full">
-        <Header />
-        {children}
+        <MonthContextProvider>
+          <Header />
+          {children}
+        </MonthContextProvider>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment, { Moment } from "moment";
 import {
   Calendar as CalendarIcon,
@@ -13,28 +13,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { MonthContext } from "./month-context-provider";
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
+const months = moment.monthsShort();
 
 const MonthPicker = () => {
-  const [startMonth, setStartMonth] = useState<Moment | null>(
-    moment().startOf("month")
-  );
-  const [endMonth, setEndMonth] = useState<Moment | null>(null);
+  const { startMonth, setStartMonth, endMonth, setEndMonth } =
+    useContext(MonthContext);
   const [year, setYear] = useState<Moment>(moment());
+
+  useEffect(() => {
+    console.log("startMonth: ", startMonth);
+    console.log("endMonth: ", endMonth);
+  }, [startMonth, endMonth]);
 
   const handleMonthClick = (month: number) => {
     const selectedDate = moment(year).month(month);
@@ -70,20 +61,18 @@ const MonthPicker = () => {
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant="outline"
           className={cn(
             "w-[280px] justify-start text-left font-normal",
             !(startMonth && endMonth) && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {startMonth && endMonth ? (
-            `${startMonth.format("MMM yyyy")} - ${endMonth.format("MMM yyyy")}`
-          ) : startMonth ? (
-            startMonth.format("MMM yyyy")
-          ) : (
-            <span>Pick a range</span>
-          )}
+          {startMonth && endMonth
+            ? `${startMonth.format("MMM yyyy")} - ${endMonth.format(
+                "MMM yyyy"
+              )}`
+            : startMonth && startMonth.format("MMM yyyy")}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col space-y-2 p-2">
@@ -97,9 +86,7 @@ const MonthPicker = () => {
         >
           This Month
         </Button>
-        {/* month picker */}
         <div className="rounded-md border px-4 py-3 flex flex-col gap-2">
-          {/* month picker header */}
           <div className="flex justify-between">
             <button
               onClick={() =>
@@ -119,7 +106,6 @@ const MonthPicker = () => {
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-          {/* month picker body */}
           <div className="grid grid-cols-4 gap-y-2">
             {months.map((month, key) => {
               const isSelectedStart =
@@ -133,20 +119,21 @@ const MonthPicker = () => {
               const isInRange = isMonthInRange(key);
               const isCurrentMonth =
                 moment().year() === year.year() && moment().month() === key;
+
               return (
                 <button
                   key={key}
                   onClick={() => handleMonthClick(key)}
-                  className={`${cn(
-                    "px-1 py-2 text-sm",
+                  className={cn(
+                    "px-1 py-2 text-sm duration-200",
                     isSelectedStart || isSelectedEnd
                       ? "text-white bg-[#18181b] rounded-md"
                       : isInRange
                       ? "text-neutral-600 bg-[#f5f5f5]"
-                      : `${
-                          isCurrentMonth && "bg-[#f5f5f5] rounded-md"
-                        } text-neutral-600 hover:bg-[#f5f5f5] hover:rounded-md`
-                  )} duration-200`}
+                      : isCurrentMonth
+                      ? "bg-[#f5f5f5] rounded-md text-neutral-600"
+                      : "text-neutral-600 hover:bg-[#f5f5f5] hover:rounded-md"
+                  )}
                 >
                   {month}
                 </button>
