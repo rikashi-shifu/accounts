@@ -9,7 +9,7 @@ const NavScrollable = () => {
   const { selectedProject } = useContext(ProjectContext);
 
   return (
-    <ScrollArea className="h-[800px] dark">
+    <ScrollArea className="h-[79dvh] dark">
       <div
         className={`${
           selectedProject === "" ? "hidden" : "flex"

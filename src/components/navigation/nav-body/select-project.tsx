@@ -39,14 +39,6 @@ const SelectProject = ({}) => {
   const [open, setOpen] = useState(false);
   const { selectedProject, setSelectedProject } = useContext(ProjectContext);
 
-  useEffect(() => {
-    if (selectedProject === "") {
-      router.push("/project");
-    } else {
-      router.push(`/project/${selectedProject}`);
-    }
-  }, [selectedProject, router]);
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -73,10 +65,18 @@ const SelectProject = ({}) => {
                 <CommandItem
                   key={project.value}
                   value={project.value}
-                  onSelect={(currentValue) => {
-                    setSelectedProject(
-                      currentValue === selectedProject ? "" : currentValue
+                  onSelect={() => {
+                    const newProjectValue =
+                      project.value === selectedProject ? "" : project.value;
+
+                    setSelectedProject(newProjectValue);
+
+                    router.push(
+                      newProjectValue === ""
+                        ? "/project"
+                        : `/project/${newProjectValue}`
                     );
+
                     setOpen(false);
                   }}
                   className="h-12"

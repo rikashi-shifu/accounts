@@ -1,8 +1,9 @@
 "use client";
+import { useParams } from "next/navigation";
 import React, { createContext, useState } from "react";
 
 interface ProjectContextType {
-  selectedProject: string;
+  selectedProject: string | string[];
   setSelectedProject: (selectedProject: string) => void;
 }
 
@@ -18,7 +19,8 @@ interface ProjectContextProviderProps {
 const ProjectContextProvider: React.FC<ProjectContextProviderProps> = ({
   children,
 }) => {
-  const [selectedProject, setSelectedProject] = useState("");
+  const { project } = useParams();
+  const [selectedProject, setSelectedProject] = useState(project ?? "");
 
   return (
     <ProjectContext.Provider value={{ selectedProject, setSelectedProject }}>

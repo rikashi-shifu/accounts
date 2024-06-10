@@ -11,7 +11,11 @@ const HeaderTitle = () => {
     if (account) {
       formattedTitle = account
         .toString()
-        .replace(/^./, (match) => match.toUpperCase());
+        .split("-")
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
+        .join(" ");
     } else {
       if (pathname.includes("income-statement")) {
         formattedTitle = "Income Statement";
