@@ -2,12 +2,14 @@ import AccountBalance from "@/components/account/account-balance";
 import AccountHeader from "@/components/account/account-header";
 import AccountTransaction from "@/components/account/account-transaction";
 import AddTransaction from "@/components/account/add-transaction";
+import { fetchTransactions } from "@/lib/fetch-transactions";
 import React from "react";
 
 const Account = async () => {
-  // const data = await getData();
-  const initialBalanceIsPositive = false;
+  const transaction = await fetchTransactions();
+  const initialBalanceIsPositive = true;
   const finalBalanceIsPositive = true;
+  console.log(transaction);
 
   return (
     <div className="p-10">
@@ -28,26 +30,26 @@ const Account = async () => {
             {/* other */}
             <AccountTransaction
               date="Jan 1"
-              details="Allowance"
+              details="Sales"
               folio=""
               amount={100}
             />
             <AccountTransaction
               date="Jan 1"
-              details="Allowance"
+              details="Sales"
               folio=""
               amount={100}
             />
             <AccountTransaction
               date="Jan 1"
-              details="Allowance"
+              details="Sales"
               folio=""
               amount={100}
             />
             {/* c/d */}
             {!finalBalanceIsPositive && (
               <AccountTransaction
-                date="Jan 1"
+                date="Jan 31"
                 details="Balance"
                 folio="c/d"
                 amount={100}
@@ -55,7 +57,7 @@ const Account = async () => {
             )}
             <AddTransaction />
           </div>
-          <AccountBalance balance={100} />
+          <AccountBalance balance={400} />
         </div>
         {/* right */}
         <div className="w-1/2 flex flex-col justify-between border-s">
@@ -73,28 +75,28 @@ const Account = async () => {
             {/* other */}
             <AccountTransaction
               date="Jan 1"
-              details="Allowance"
+              details="Purchases"
               folio=""
               amount={100}
             />
             <AccountTransaction
               date="Jan 1"
-              details="Allowance"
+              details="Purchases"
               folio=""
               amount={100}
             />
             {/* c/d */}
             {finalBalanceIsPositive && (
               <AccountTransaction
-                date="Jan 1"
+                date="Jan 31"
                 details="Balance"
                 folio="c/d"
-                amount={100}
+                amount={200}
               />
             )}
             <AddTransaction />
           </div>
-          <AccountBalance balance={100} />
+          <AccountBalance balance={400} />
         </div>
       </div>
     </div>
