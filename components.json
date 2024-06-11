@@ -12,6 +12,6 @@
   },
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/shad-classname"
+    "utils": "@/lib/shadcn"
   }
 }

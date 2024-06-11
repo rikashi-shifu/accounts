@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
-import cn from "@/lib/shad-classname";
+import cn from "@/lib/shadcn";
 import { Metadata } from "next";
 
 const fontSans = FontSans({

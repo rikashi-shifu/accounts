@@ -6,7 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import cn from "@/lib/shad-classname";
+import cn from "@/lib/shadcn";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -21,11 +21,6 @@ const MonthPicker = () => {
   const { startMonth, setStartMonth, endMonth, setEndMonth } =
     useContext(MonthContext);
   const [year, setYear] = useState<Moment>(moment());
-
-  useEffect(() => {
-    console.log("startMonth: ", startMonth);
-    console.log("endMonth: ", endMonth);
-  }, [startMonth, endMonth]);
 
   const handleMonthClick = (month: number) => {
     const selectedDate = moment(year).month(month);

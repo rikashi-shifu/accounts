@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useContext } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-import cn from "@/lib/shad-classname";
+import cn from "@/lib/shadcn";
 import { Button } from "@/components/ui/button";
 import {
   Command,
