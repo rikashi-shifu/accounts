@@ -5,8 +5,8 @@ import AccountTransaction from "./account-transaction";
 import moment from "moment";
 import AddTransaction from "./add-transaction";
 import AccountBalance from "./account-balance";
-import Transaction from "@/types/transaction";
 import { useParams } from "next/navigation";
+import { Transaction } from "@/types/types";
 
 interface DebitSideProps {
   transactions: Transaction[];

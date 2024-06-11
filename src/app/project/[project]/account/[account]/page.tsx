@@ -1,7 +1,7 @@
 import CreditSide from "@/components/account/credit-side";
 import DebitSide from "@/components/account/debit-side";
 import { getTransactions } from "@/lib/get-transactions";
-import Transaction from "@/types/transaction";
+import { Transaction } from "@/types/types";
 import React from "react";
 
 const Account = async () => {

@@ -5,8 +5,8 @@ import AccountBalance from "./account-balance";
 import AccountHeader from "./account-header";
 import AccountTransaction from "./account-transaction";
 import AddTransaction from "./add-transaction";
-import Transaction from "@/types/transaction";
 import { useParams } from "next/navigation";
+import { Transaction } from "@/types/types";
 
 interface CreditSideProps {
   transactions: Transaction[];
