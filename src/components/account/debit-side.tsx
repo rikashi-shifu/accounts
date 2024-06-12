@@ -19,7 +19,7 @@ const DebitSide: React.FC<DebitSideProps> = ({
   initialBalanceIsPositive,
   finalBalanceIsPositive,
 }) => {
-  const { account } = useParams();
+  const { project, account } = useParams();
 
   return (
     <div className="w-1/2 flex flex-col justify-between">
@@ -38,7 +38,10 @@ const DebitSide: React.FC<DebitSideProps> = ({
         {transactions
           .filter((transaction) => {
             return (
-              transaction.debit.toLowerCase().replace(/ /g, "-") === account
+              transaction.project.name.toLowerCase().replace(/ /g, "-") ===
+                project &&
+              transaction.debit.name.toLowerCase().replace(/ /g, "-") ===
+                account
             );
           })
           .map((transaction, key) => {
@@ -46,7 +49,7 @@ const DebitSide: React.FC<DebitSideProps> = ({
               <AccountTransaction
                 key={key}
                 date={moment(transaction.date).format("MMM D")}
-                details={transaction.credit}
+                details={transaction.credit.name}
                 folio={transaction.folio}
                 amount={transaction.amount}
               />

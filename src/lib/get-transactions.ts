@@ -1,11 +1,24 @@
 import { supabaseAdmin } from "./supabase";
 
 export async function getTransactions() {
-  const { data, error } = await supabaseAdmin.from("transactions").select("*");
+  const transactions = await supabaseAdmin
+    .from("transactions")
+    .select(
+      `*,
+      debit:debit_id (*),
+      credit:credit_id (*),
+      project:project_id (*),
+      profile:profile_id (*)`
+    )
+    .order("date", { ascending: true });
 
-  if (error) {
-    throw new Error(error.message);
+  if (transactions.data) {
+    console.log(transactions.data);
   }
 
-  return data;
+  if (transactions.error) {
+    throw new Error(transactions.error.message);
+  }
+
+  return transactions.data;
 }
