@@ -4,9 +4,15 @@ import NavButton from "./nav-button";
 import NavAccordian from "./nav-accordian";
 import { ScrollArea } from "../../../ui/scroll-area";
 import { ProjectContext } from "../project-context-provider";
+import { Account } from "@/types/types";
 
-const NavScrollable = () => {
+interface NavScrollableProps {
+  accounts: Account[];
+}
+
+const NavScrollable: React.FC<NavScrollableProps> = ({ accounts }) => {
   const { selectedProject } = useContext(ProjectContext);
+  console.log(selectedProject);
 
   return (
     <ScrollArea className="h-[79dvh] dark">
@@ -28,24 +34,66 @@ const NavScrollable = () => {
 
         <NavAccordian primary label="Ledgers">
           <NavAccordian secondary label="General">
-            <NavButton tertiary path="cash" label="Cash" />
-            <NavButton tertiary path="bank" label="Bank" />
+            {accounts
+              .filter((account) => {
+                return (
+                  account.project.name.toLowerCase().replace(/ /g, "-") ===
+                    selectedProject && account.ledger === "General"
+                );
+              })
+              .map((account, key) => {
+                return (
+                  <NavButton
+                    key={key}
+                    tertiary
+                    path={account.name.toLowerCase().replace(/ /g, "-")}
+                    label={account.name}
+                    category={account.category}
+                  />
+                );
+              })}
           </NavAccordian>
 
           <NavAccordian secondary label="Purchases">
-            <NavButton
-              tertiary
-              path="credit-supplier"
-              label="Credit Supplier"
-            />
+            {accounts
+              .filter((account) => {
+                return (
+                  account.project.name.toLowerCase().replace(/ /g, "-") ===
+                    selectedProject && account.ledger === "Purchases"
+                );
+              })
+              .map((account, key) => {
+                return (
+                  <NavButton
+                    key={key}
+                    tertiary
+                    path={account.name.toLowerCase().replace(/ /g, "-")}
+                    label={account.name}
+                    category={account.category}
+                  />
+                );
+              })}
           </NavAccordian>
 
           <NavAccordian secondary label="Sales">
-            <NavButton
-              tertiary
-              path="credit-customer"
-              label="Credit Customer"
-            />
+            {accounts
+              .filter((account) => {
+                return (
+                  account.project.name.toLowerCase().replace(/ /g, "-") ===
+                    selectedProject && account.ledger === "Sales"
+                );
+              })
+              .map((account, key) => {
+                return (
+                  <NavButton
+                    key={key}
+                    tertiary
+                    path={account.name.toLowerCase().replace(/ /g, "-")}
+                    label={account.name}
+                    category={account.category}
+                  />
+                );
+              })}
           </NavAccordian>
         </NavAccordian>
       </div>

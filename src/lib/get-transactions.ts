@@ -1,7 +1,7 @@
 import { supabaseAdmin } from "./supabase";
 
 export async function getTransactions() {
-  const transactions = await supabaseAdmin
+  const { data, error } = await supabaseAdmin
     .from("transactions")
     .select(
       `*,
@@ -12,13 +12,9 @@ export async function getTransactions() {
     )
     .order("date", { ascending: true });
 
-  if (transactions.data) {
-    console.log(transactions.data);
+  if (error) {
+    throw new Error(error.message);
   }
 
-  if (transactions.error) {
-    throw new Error(transactions.error.message);
-  }
-
-  return transactions.data;
+  return data;
 }

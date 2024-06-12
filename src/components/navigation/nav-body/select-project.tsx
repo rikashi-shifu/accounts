@@ -18,23 +18,13 @@ import {
 import { CommandList } from "cmdk";
 import { useRouter } from "next/navigation";
 import { ProjectContext } from "./project-context-provider";
+import { FormattedProject } from "./nav-body";
 
-const projects = [
-  {
-    value: "personal",
-    label: "Personal",
-  },
-  {
-    value: "work",
-    label: "Work",
-  },
-  {
-    value: "freelance",
-    label: "Freelance",
-  },
-];
+interface SelectProjectProps {
+  projects: FormattedProject[];
+}
 
-const SelectProject = ({}) => {
+const SelectProject: React.FC<SelectProjectProps> = ({ projects }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { selectedProject, setSelectedProject } = useContext(ProjectContext);
