@@ -59,7 +59,7 @@ const NavButton: React.FC<NavButtonProps> = ({
             : "border-transparent"
         } bg-[#3b3b3b] text-neutral-300 text-sm flex items-center justify-between`
       }
-       h-10 px-4 transition-all duration-300 w-full text-start rounded-md border hover:border-neutral-500`}
+       h-10 px-4 duration-300 w-full text-start rounded-md border hover:border-neutral-500`}
     >
       {label}
       {tertiary && <div className="text-xs text-neutral-400">{category}</div>}

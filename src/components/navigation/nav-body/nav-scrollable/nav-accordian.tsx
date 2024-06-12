@@ -2,6 +2,7 @@
 import React, { useState, type ReactNode } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
+import { AddAccount } from "./add-account";
 
 interface NavAccordianProps {
   primary?: boolean;
@@ -33,7 +34,7 @@ const NavAccordian: React.FC<NavAccordianProps> = ({
           ${
             secondary &&
             (showChildren ? "text-neutral-300" : "text-neutral-400")
-          } font-semibold transition-all duration-300`}
+          } font-semibold duration-300`}
         >
           {label}
         </h1>
@@ -57,12 +58,12 @@ const NavAccordian: React.FC<NavAccordianProps> = ({
           )}
         </button>
       </div>
-
-      <div
-        className={`${showChildren ? "flex" : "hidden"} flex-col gap-2 pb-1`}
-      >
-        {children}
-      </div>
+      {showChildren && (
+        <div className="flex flex-col gap-2 pb-1">
+          {children}
+          {secondary && <AddAccount />}
+        </div>
+      )}
     </div>
   );
 };
