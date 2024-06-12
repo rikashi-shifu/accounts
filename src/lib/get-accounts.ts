@@ -5,10 +5,6 @@ export async function getAccounts() {
     .from("accounts")
     .select(`*, project:project_id (*)`);
 
-  if (data) {
-    console.log(data);
-  }
-
   if (error) {
     throw new Error(error.message);
   }

@@ -12,7 +12,6 @@ interface NavScrollableProps {
 
 const NavScrollable: React.FC<NavScrollableProps> = ({ accounts }) => {
   const { selectedProject } = useContext(ProjectContext);
-  console.log(selectedProject);
 
   return (
     <ScrollArea className="h-[79dvh] dark">

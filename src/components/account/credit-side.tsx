@@ -10,14 +10,14 @@ import { Transaction } from "@/types/types";
 
 interface CreditSideProps {
   transactions: Transaction[];
-  initialBalanceIsPositive: boolean;
-  finalBalanceIsPositive: boolean;
+  balanceCarriedDown: number;
+  balance: number;
 }
 
 const CreditSide: React.FC<CreditSideProps> = ({
   transactions,
-  initialBalanceIsPositive,
-  finalBalanceIsPositive,
+  balanceCarriedDown,
+  balance,
 }) => {
   const { project, account } = useParams();
 
@@ -26,14 +26,14 @@ const CreditSide: React.FC<CreditSideProps> = ({
       <div className="w-full flex flex-col justify-center items-center">
         <AccountHeader />
         {/* b/d */}
-        {!initialBalanceIsPositive && (
+        {/* {!initialBalanceIsPositive && (
           <AccountTransaction
             date="Jan 1"
             details="Balance"
             folio="b/d"
             amount={100}
           />
-        )}
+        )} */}
         {transactions
           .filter((transaction) => {
             return (
@@ -55,17 +55,17 @@ const CreditSide: React.FC<CreditSideProps> = ({
             );
           })}
         {/* c/d */}
-        {finalBalanceIsPositive && (
+        {balanceCarriedDown > 0 && (
           <AccountTransaction
             date="Jan 31"
             details="Balance"
             folio="c/d"
-            amount={200}
+            amount={balanceCarriedDown}
           />
         )}
         <AddTransaction />
       </div>
-      <AccountBalance balance={400} />
+      <AccountBalance balance={balance} />
     </div>
   );
 };
